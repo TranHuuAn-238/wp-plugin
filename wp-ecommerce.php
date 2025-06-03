@@ -37,3 +37,5 @@ function wp_ecommerce_deactivation() {
 
     // Xóa options
 }
+
+include_once WP_PATH . '/includes/includes.php';
