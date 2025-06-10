@@ -31,3 +31,33 @@ function meta_box_product_html() {
     include_once WP_PATH . '/includes/templates/meta_box_product.php';
 
 }
+
+// Category screen
+
+// Đăng ký thêm trường cho taxonomy
+// Form lúc thêm mới: add_action('<taxonomy_name>_add_form_fields',...
+add_action('product_cat_add_form_fields', 'wp_meta_box_product_cat_add');
+// Form lúc chỉnh sửa: add_action('<taxonomy_name>_edit_form_fields,...
+add_action('product_cat_edit_form_fields', 'wp_meta_box_product_cat_edit', 10, 2);
+
+function wp_meta_box_product_cat_add() {
+    include_once WP_PATH . '/includes/templates/meta_box_product_cat_add.php';
+}
+
+function wp_meta_box_product_cat_edit($tag, $taxonomy) {
+    include_once WP_PATH . '/includes/templates/meta_box_product_cat_edit.php';
+}
+
+// Xử lý khi lưu term
+/**
+ * do_action('edit_<taxonomy_name>');
+ * do_action('create_<taxonomy_name>');
+ */
+
+add_action('create_product_cat', 'wp_meta_box_product_cat_save', 10, 1);
+add_action('edit_product_cat', 'wp_meta_box_product_cat_save', 10, 1);
+
+function wp_meta_box_product_cat_save($term_id) {
+    $image = $_POST['image'];
+    update_term_meta($term_id, 'image', $image);
+}
