@@ -34,13 +34,13 @@ function wp_admin_menu() {
 }
 
 function wp_admin_page_dashboard() {
-    echo 'wp_admin_page_dashboard';
+    include_once WP_PATH . 'includes/admin_pages/dashboard.php';
 }
 
 function wp_admin_page_orders() {
-    echo 'wp_admin_page_orders';
+    include_once WP_PATH . 'includes/admin_pages/orders.php';
 }
 
 function wp_admin_page_settings() {
-    echo 'wp_admin_page_settings';
+    include_once WP_PATH . 'includes/admin_pages/settings.php';
 }
