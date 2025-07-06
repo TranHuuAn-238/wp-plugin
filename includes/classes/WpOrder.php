@@ -17,11 +17,21 @@ class WpOrder {
     public function paginate($limit = 20) {
         global $wpdb;
 
+        $s = isset($_REQUEST['s']) ? $_REQUEST['s'] : '';
+        $status = isset($_REQUEST['status']) ? $_REQUEST['status'] : '';
+
         $paged = 1;
 
         // Lấy tổng số records
-        $sql = "SELECT count(id) FROM $this->_orders";
-        $total_items = $wpdb->get_vars($sql);
+        $sql = "SELECT count(id) FROM $this->_orders WHERE deleted = 0";
+        // Tìm kiếm
+        if ($s) {
+            $sql .= " AND (customer_name LIKE '%$s%' OR customer_phone LIKE '%$s%')";
+        }
+        if ($status) {
+            $sql .= " AND status = '$status'";
+        }
+        $total_items = $wpdb->get_var($sql);
 
         // Thuật toán phân trang
         /**
@@ -32,12 +42,23 @@ class WpOrder {
         $total_pages = ceil($total_items / $limit);
         $offset      = ($paged * $limit) - $limit;
 
-        $sql = "SELECT * FROM $this->_orders";
+        $sql = "SELECT * FROM $this->_orders WHERE deleted = 0";
+        // Tìm kiếm
+        if ($s) {
+            $sql .= " AND (customer_name LIKE '%$s%' OR customer_phone LIKE '%$s%')";
+        }
+        if ($status) {
+            $sql .= " AND status = '$status'";
+        }
         $sql .= " ORDER BY id DESC";
         $sql .= " LIMIT $limit OFFSET $offset";
 
         $items = $wpdb->get_results($sql);
-        return $items;
+        return [
+            'total_pages' => $total_pages,
+            'total_items' => $total_items,
+            'items'       => $items,
+        ];
     }
 
     public function find($id) {
@@ -60,6 +81,20 @@ class WpOrder {
         $wpdb->update($this->_orders, $data, [
             'id' => $id
         ]);
+        return true;
+    }
+
+    public function trash($id) {
+        global $wpdb;
+        $wpdb->update(
+            $this->_orders,
+            [
+                'deleted' => 1
+            ],
+            [
+                'id' => $id
+            ]
+        );
         return true;
     }
 
