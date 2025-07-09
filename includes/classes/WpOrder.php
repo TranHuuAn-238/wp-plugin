@@ -19,8 +19,7 @@ class WpOrder {
 
         $s = isset($_REQUEST['s']) ? $_REQUEST['s'] : '';
         $status = isset($_REQUEST['status']) ? $_REQUEST['status'] : '';
-
-        $paged = 1;
+        $paged = isset($_REQUEST['paged']) ? $_REQUEST['paged'] : 1;
 
         // Lấy tổng số records
         $sql = "SELECT count(id) FROM $this->_orders WHERE deleted = 0";
@@ -103,6 +102,21 @@ class WpOrder {
         $wpdb->delete($this->_orders, [
             'id' => $id
         ]);
+        return true;
+    }
+
+    public function change_status($order_id, $status)
+    {
+        global $wpdb;
+        $wpdb->update(
+            $this->_orders,
+            [
+                'status' => $status
+            ],
+            [
+                'id' => $order_id
+            ]
+        );
         return true;
     }
 }
