@@ -14,11 +14,11 @@ include_once WP_PATH . '/includes/admin_columns.php';
 // Tạo menu cho admin
 include_once WP_PATH . '/includes/admin_menus.php';
 
-// Tạo trang setting cho admin
-include_once WP_PATH . '/includes/admin_settings.php';
-
 // Làm việc với CSDL trong WP
 include_once WP_PATH . '/includes/classes/WpOrder.php';
 
 // Sử dụng ajax trong php
 include_once WP_PATH . '/includes/admin_ajax.php';
+
+// Tạo trang settings cho admin
+include_once WP_PATH . '/includes/admin_settings.php';
