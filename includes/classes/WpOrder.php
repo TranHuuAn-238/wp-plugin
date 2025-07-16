@@ -80,7 +80,8 @@ class WpOrder {
         $wpdb->update($this->_orders, $data, [
             'id' => $id
         ]);
-        return true;
+        $item = $this->find($id);
+        return $item;
     }
 
     public function trash($id) {

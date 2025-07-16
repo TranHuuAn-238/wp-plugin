@@ -22,3 +22,6 @@ include_once WP_PATH . '/includes/admin_ajax.php';
 
 // Tạo trang settings cho admin
 include_once WP_PATH . '/includes/admin_settings.php';
+
+// Tạo api trong WP
+include_once WP_PATH . '/includes/apis.php';
