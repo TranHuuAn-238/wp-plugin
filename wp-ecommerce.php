@@ -24,18 +24,20 @@ register_activation_hook( __FILE__, 'wp_ecommerce_activation' );
 function wp_ecommerce_activation() {
     // Không được có output (echo ở đây)
     // Tạo CSDL
-
+    include_once WP_PATH . '/includes/db/migration.php';
     // Tạo dữ liệu mẫu
-
+    include_once WP_PATH . '/includes/db/seeder.php';
     // Tạo options
+    update_option('wp_settings_options', []);
 }
 
 // Định nghĩa hành động khi plugin ngừng kích hoạt
 register_deactivation_hook( __FILE__, 'wp_ecommerce_deactivation' );
 function wp_ecommerce_deactivation() {
     // Có thể xóa CSDL
-
+    // include_once WP_PATH . '/includes/db/migration-rollback.php';
     // Xóa options
+    // delete_option('wp_settings_options');
 }
 
 include_once WP_PATH . '/includes/includes.php';

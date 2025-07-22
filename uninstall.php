@@ -8,5 +8,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 // Xóa CSDL
 // global $wpdb;
 // $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}mytable" );
+include_once WP_PATH . '/includes/db/migration-rollback.php';
 
 // Xóa options
+delete_option('wp_settings_options');
