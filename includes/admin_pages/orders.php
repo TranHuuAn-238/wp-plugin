@@ -19,30 +19,30 @@
     }
 ?>
 <div class="wrap">
-    <h1 class="wp-heading-inline">Quản lý đơn hàng</h1>
+    <h1 class="wp-heading-inline"><?= __('Manage Orders', 'wp-ecommerce'); ?></h1>
     <hr class="wp-header-end">
     <ul class="subsubsub">
         <li class="all">
-            <a href="admin.php?page=wp-orders" class="current">Tất cả <span class="count">(1)</span></a>
+            <a href="admin.php?page=wp-orders" class="current"><?= __('All', 'wp-ecommerce'); ?> <span class="count">(1)</span></a>
             |
         </li>
         <li class="publish">
-            <a href="admin.php?page=wp-orders&status=pending">Đơn hàng mới</span></a> |
+            <a href="admin.php?page=wp-orders&status=pending"><?= __('New Orders', 'wp-ecommerce'); ?></span></a> |
         </li>
         <li class="publish">
-            <a href="admin.php?page=wp-orders&status=completed">Đơn hàng đã hoàn thành</span></a> |
+            <a href="admin.php?page=wp-orders&status=completed"><?= __('Completed Orders', 'wp-ecommerce'); ?></span></a> |
         </li>
         <li class="publish">
-            <a href="admin.php?page=wp-orders&status=canceled">Đơn hàng đã hủy</span></a>
+            <a href="admin.php?page=wp-orders&status=canceled"><?= __('Canceled Orders', 'wp-ecommerce'); ?></span></a>
         </li>
     </ul>
     <form id="posts-filter" method="get">
         <input type="hidden" name="page" value="wp-orders">
         <!-- <input type="hidden" name="paged" value="1"> -->
         <p class="search-box">
-            <label class="screen-reader-text" for="post-search-input">Tìm kiếm đơn hàng:</label>
-            <input type="search" id="post-search-input" name="s" value="" placeholder="Tìm kiếm đơn hàng">
-            <input type="submit" id="search-submit" class="button" value="Tìm">
+            <label class="screen-reader-text" for="post-search-input"><?= __('Search Orders', 'wp-ecommerce'); ?>:</label>
+            <input type="search" id="post-search-input" name="s" value="" placeholder="<?= __('Search Orders', 'wp-ecommerce'); ?>">
+            <input type="submit" id="search-submit" class="button" value="<?= __('Search Orders', 'wp-ecommerce'); ?>">
         </p>
         <div class="tablenav top">
             <div class="alignleft actions bulkactions">

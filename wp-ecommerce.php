@@ -19,6 +19,20 @@
 define('WP_PATH', plugin_dir_path(__FILE__)); // include các file php khác
 define('WP_URI', plugin_dir_url(__FILE__));   // include js, css, images
 
+// Tải file ngôn ngữ
+add_action( 'init', 'wp2025_load_textdomain' );
+function wp2025_load_textdomain() {
+    load_plugin_textdomain( 'wp-ecommerce', false, WP_PATH . '/languages' ); 
+}
+function wp2025_load_textdomain_mofile( $mofile, $domain ) {
+	if ( 'wp-ecommerce' === $domain && false !== strpos( $mofile, WP_LANG_DIR . '/plugins/' ) ) {
+		$locale = apply_filters( 'plugin_locale', determine_locale(), $domain );
+		$mofile = WP_PATH . '/languages/' . $domain . '-' . $locale . '.mo';
+	}
+	return $mofile;
+}
+add_filter( 'load_textdomain_mofile', 'wp2025_load_textdomain_mofile', 10, 2 ); // trả về đường dẫn của mofile
+
 // Định nghĩa hành động khi plugin được kích hoạt
 register_activation_hook( __FILE__, 'wp_ecommerce_activation' );
 function wp_ecommerce_activation() {
