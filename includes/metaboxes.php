@@ -8,13 +8,19 @@ add_action( 'save_post', 'wp_save_post_product' );
 
 function wp_save_post_product($post_id) {
     if ($_REQUEST['post_type'] == 'product') {
-        $product_price      = $_REQUEST['product_price'];
-        $product_price_sale = $_REQUEST['product_price_sale'];
-        $product_stock      = $_REQUEST['product_stock'];
-        // Lưu vào CSDL: wp_postmeta
-        update_post_meta($post_id, 'product_price', $product_price);
-        update_post_meta($post_id, 'product_price_sale', $product_price_sale);
-        update_post_meta($post_id, 'product_stock', $product_stock);
+        if (isset($_REQUEST['product_price'])) {
+            $product_price      = $_REQUEST['product_price'];
+            // Lưu vào CSDL: wp_postmeta
+            update_post_meta($post_id, 'product_price', $product_price);
+        }
+        if (isset($_REQUEST['product_price_sale'])) {
+            $product_price_sale = $_REQUEST['product_price_sale'];
+            update_post_meta($post_id, 'product_price_sale', $product_price_sale);
+        }
+        if (isset($_REQUEST['product_stock'])) {
+            $product_stock      = $_REQUEST['product_stock'];
+            update_post_meta($post_id, 'product_stock', $product_stock);
+        }
     }
 }
 

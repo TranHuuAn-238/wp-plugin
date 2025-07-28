@@ -5,6 +5,7 @@ class WpOrder {
     {
         global $wpdb;
         $this->_orders = $wpdb->prefix . 'orders'; // wp_orders
+        $this->_order_detail = $wpdb->prefix . 'order_detail'; // wp_order_detail
     }
 
     public function all() {
@@ -119,5 +120,16 @@ class WpOrder {
             ]
         );
         return true;
+    }
+
+    public function order_items($order_id) {
+        global $wpdb;
+        $sql = "SELECT products.post_title as product_name, order_detail.* FROM $this->_order_detail as order_detail
+        JOIN $wpdb->posts as products ON products.ID = order_detail.product_id
+        WHERE order_detail.order_id = $order_id
+        ORDER BY order_detail.id DESC
+        ";
+        $items = $wpdb->get_results($sql);
+        return $items;
     }
 }
