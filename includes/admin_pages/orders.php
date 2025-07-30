@@ -26,31 +26,3 @@
     
 ?>
 
-
-<script>
-    // Đường dẫn xử lý ajax
-    let ajax_url = '<?= admin_url('admin-ajax.php'); ?>';
-    jQuery(document).ready(function () {
-        // alert('Jquery');
-        jQuery('.order_status').on('change', function() {
-            let order_id = jQuery(this).data('id'); // data-id
-            let status = jQuery(this).val();
-
-            jQuery.ajax({
-                url: ajax_url,
-                method: 'POST',
-                data: {
-                    action: 'wp_order_change_status',
-                    order_id: order_id,
-                    status: status
-                },
-                success: function(res) {
-                    alert('Updated success!');
-                },
-                error: function(error) {
-
-                }
-            });
-        });
-    });
-</script>

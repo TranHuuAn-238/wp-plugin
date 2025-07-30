@@ -9,9 +9,13 @@ if ($order_id) {
 }
 
 if (isset($_POST['wp_save_order'])) { // input submit name wp_save_order
+    check_admin_referer( 'wp2025-update_order' );
+
     // Người dùng đang lưu order
     $order_status    = isset($_REQUEST['order_status']) ? $_REQUEST['order_status'] : '';
     $note            = isset($_REQUEST['note']) ? $_REQUEST['note'] : '';
+
+    $note = sanitize_text_field($note);
 
     $objWpOrder->update($order_id, [
         'status'     => $order_status,
@@ -20,6 +24,7 @@ if (isset($_POST['wp_save_order'])) { // input submit name wp_save_order
 
     wp2025_redirect('admin.php?page=wp-orders&order_id=' . $order_id);
     exit();
+
 }
 ?>
 
@@ -33,6 +38,7 @@ if (isset($_POST['wp_save_order'])) { // input submit name wp_save_order
 <div class="wrap">
     <h1 class="wp-heading-inline">Chi tiết đơn hàng <?= $order->id; ?></h1>
     <form id="posts-filter" method="post">
+        <?php wp_nonce_field( 'wp2025-update_order' ); ?>
         <div id="poststuff">
             <div id="post-body" class="metabox-holder columns-2">
                 <!-- Left column -->
@@ -66,7 +72,7 @@ if (isset($_POST['wp_save_order'])) { // input submit name wp_save_order
                                 </tr>
                                 <tr>
                                     <td>Địa chỉ</td>
-                                    <td><?= $order->customer_address; ?></td>
+                                    <td><?= esc_html($order->customer_address); ?></td>
                                 </tr>
                                 <tr>
                                     <td>Ghi chú</td>

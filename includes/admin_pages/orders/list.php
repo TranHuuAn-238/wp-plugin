@@ -121,3 +121,40 @@
         </div>
     </form>
 </div>
+
+<script>
+    // Đường dẫn xử lý ajax
+    let nonce = '<?= wp_create_nonce( 'wp2025_update_order_status' ); ?>';
+    let ajax_url = '<?= admin_url('admin-ajax.php'); ?>';
+    jQuery(document).ready(function () {
+        // alert('Jquery');
+        jQuery('.order_status').on('change', function() {
+            let order_id = jQuery(this).data('id'); // data-id
+            let status = jQuery(this).val();
+
+            jQuery.ajax({
+                url: ajax_url,
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    action: 'wp_order_change_status',
+                    order_id: order_id,
+                    status: status,
+                    _wpnonce: nonce
+                },
+                success: function(res) {
+                    // res = JSON.parse(res);
+                    // console.log(res.success);
+                    if (res.success) {
+                        alert('Updated success!');
+                    } else {
+                        alert('Updated failed!');
+                    }
+                },
+                error: function(error) {
+
+                }
+            });
+        });
+    });
+</script>
